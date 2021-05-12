@@ -126,3 +126,4 @@ let sayHello = () => {
 };
 sayHello(); // ReferenceError: Cannot access 'username' before initialization
 ```
+new commit
