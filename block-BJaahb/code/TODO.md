@@ -5,7 +5,7 @@ function outer() {
   let b = 10;
   function inner() {
     let a = 20;
-    console.log(a + b);
+    console.log(a + b);//30
   }
   return inner;
 }
@@ -28,16 +28,16 @@ function getCounter() {
 
 let counter = getCounter();
 
-counter(); // output
-counter(); // output
-counter(); // output
-counter(); // output
+counter(); // 0
+counter(); // 1
+counter(); // 2
+counter(); // 3
 ```
 
 3. Create the execution context diagram
 
 ```js
-let body = document.querySelector("body");
+
 function makeColorChanger(color) {
   return function () {
     document.body.style.backgroundColor = color;
@@ -47,8 +47,8 @@ function makeColorChanger(color) {
 let blue = makeColorChanger('blue');
 let tomato = makeColorChanger('tomato');
 
-blue();
-tomato();
+blue();//blue background color
+tomato();//tomato background color
 
-// What will be the background color after the execution of last line
+// What will be the background color after the execution of last line  - its tomato
 ```
