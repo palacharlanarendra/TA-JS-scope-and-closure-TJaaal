@@ -37,6 +37,7 @@ counter(); // output
 3. Create the execution context diagram
 
 ```js
+let body = document.querySelector("body");
 function makeColorChanger(color) {
   return function () {
     document.body.style.backgroundColor = color;
