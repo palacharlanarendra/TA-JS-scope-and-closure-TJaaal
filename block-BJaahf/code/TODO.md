@@ -10,8 +10,21 @@
 **You can use normal for loop for this function**
 
 ```js
-function loop() {
-  // Your code goes here
+function loop(startValue,testFn,updateFn,bodyFn) {
+  let limit=testFn();
+  let currentValue=i;
+  for(var i = startValue;i<limit;i++){
+
+  }
+}
+let testFn = function(arg){
+  return arg;
+} 
+function bodyFn(args){
+  return `body fn is executed ${args}`
+}
+function updateFn(){
+  return currentValue=i;
 }
 
 loop(
