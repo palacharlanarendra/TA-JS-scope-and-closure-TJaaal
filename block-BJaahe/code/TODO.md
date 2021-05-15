@@ -3,20 +3,35 @@
 1. Write a function, `outer` that takes an input `string`. Inside the function `outer` define another function expression named `sayHello` which alerts the `input`. `sayHello` should be call immediately after it is defined.
 
 ```js
-// Your code goes here
+function outer(input){
+  return {
+    sayHello = ()=>{
+    alert(input);
+  }
+}   
+}
+outer("narendra").sayHello();
 ```
 
 2. Write a function `delay` that accepts two arguments, a callback and the wait for the time in milliseconds (1000 ms is 1 second). `delay` should return a function that, when invoked waits for the specified amount of time before executing. (Use setTimeout)
 
 ```js
-// Your code goes here
+function delay(cb,time){
+  return setTimeout(cb,time);
+}
+function cb(){
+  console.log("done");
+}
+console.log(delay(cb,1000));
 ```
 
 3. Write a function with a closure. The first function should only take one argument, someone's last name, and return the inner function. The returned `inner` function should take one more argument, someone's first name. When inner function when called it should console.log both the first name and the last name with a space.
 
 ```js
-function lastName() {
-  //  Your code goes here
+function lastName(last) {
+  return function firstName(first){
+    console.log(`${first} ${last}`);
+  }
 }
 
 let lastNameLee = lastName('lee'); // logs nothing
@@ -34,7 +49,15 @@ lastNameLee('Lynne'); //logs 'Lynne Lee'
 
 ```js
 function storyWriter() {
-  // Your code goes here
+  let story="lorem ipsum lorem ipsum. ";
+  return{
+    addWords: function(storyLine){
+      return story+=storyLine;
+    },
+    erase: function(){
+      return story="";
+    }
+  }
 }
 
 // Test
@@ -49,16 +72,20 @@ storyOfMyLife.addWords('I ate some ice cream.'); //'My code broke. I ate some ic
 storyOfMyLife.erase(); // ''
 ```
 
-5. Create a function named `forEach` which accepts one parameter an array. Inside the function `forEach` there a variable named `index` which is initialized to `0`.
+5. Create a function named `forEach` which accepts one parameter as an array. Inside the function `forEach` there a variable named `index` which is initialized to `0`.
 
 When `forEach` function is called it returns another function. When the returned function is called it returns the element from the array at specific index. Every time you call the returned function the value of index should increment.
 
 ```js
-function forEach() {
-  // Your code goes here
+function forEach(arr) {
+  let index = 0;
+  return function inner(){
+    console.log(arr[index]);
+    index++;
+  } 
 }
+let next = forEach([1,2,3,4]);
 
-let next = [1, 2, 3, 4, 5];
 next(); // 1
 next(); // 2
 next(); // 3
@@ -72,7 +99,9 @@ The returned function accepts a string `prefix` and returns `prefix` and `title`
 
 ```js
 function addDesignation(title) {
-  // your code goes here
+  return function prefix(pre){
+      return `${pre} ${title} `
+  }
 }
 
 let sales = addDesignation('Salesman');
@@ -90,8 +119,19 @@ manager('Head'); // Head Manager
 - `current` will return the current salary returns the updated salary
 
 ```js
-function changeSalary() {
-  // Your code goes here
+function changeSalary(salary) {
+  var salaryNew = salary;
+  return{
+    raise: function(){
+      return salaryNew+=500
+    },
+    lower:function(){
+      return salaryNew-=500
+    },
+    current:function(){
+      return salaryNew;
+    }
+  }
 }
 
 let sam = changeSalary(2000);
@@ -108,7 +148,15 @@ arya.lower(); // 3500
 - `setLastName`: accepts a parameter last name using which updates the firstName and return the updated full name
 
 ```js
-// Your code goes here
+function nameFactory(firstName,lastName){
+  return{
+    getFullName: () => `${firstName} ${lastName}`,
+    setFirstName: (updateFirst) => `${updateFirst} ${lastName}`,
+    setLastName: (updateLast) => `${firstName} ${updateLast}`,
+  }
+}
+
+
 
 let arya = nameFactory('Arya', 'Stark');
 arya.getFullName(); // "Arya Stark"
@@ -121,8 +169,8 @@ arya.setLastName('Lannister'); // "Jon Lannister"
 The returned function accepts a string (children) and returns the children with the tag you passed.
 
 ```js
-function createTag() {
-  // your code goes here
+function createTag(tag) {
+  return (text) => `<${tag}>${text}</${tag}>` 
 }
 
 let bold = createTag('b');
