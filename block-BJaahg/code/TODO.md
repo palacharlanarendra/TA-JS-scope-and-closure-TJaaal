@@ -388,7 +388,7 @@ allFunctions.reduce((acc,elem,index)=>{
   
     return elem(acc);
 
-},allFunctions[0](100));
+},100);
 
 // Answer is: 447
 ```
