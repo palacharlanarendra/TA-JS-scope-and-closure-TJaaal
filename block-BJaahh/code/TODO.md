@@ -4,7 +4,9 @@
 
 ```js
 // Your code goes here
-
+function multiplyBy(number){
+  return (number2)=> number*number2;
+}
 const double = multiplyBy(2);
 const final = double(15); // final should be 30
 ```
@@ -12,7 +14,9 @@ const final = double(15); // final should be 30
 2. Write a function called `fullName` that takes a string `firstName` as an argument and returns a function. Returned function takes another string `lastName` as an argument and returns full name.
 
 ```js
-// Your code goes here
+function fullName(firstName){
+  return (lastName)=>`${firstName} ${lastName}`;
+}
 
 const name = fullName('Will');
 const final = name('Smith'); // final should be "Will Smith"
@@ -22,7 +26,13 @@ const final = name('Smith'); // final should be "Will Smith"
 
 ```js
 function isInBetween(a, b) {
-  // your code goes here
+  return (n)=>{
+    if(n>a && n<b){
+      return true;
+      break();
+    }
+    return false;
+  }
 }
 
 const isChild = isInBetween(10, 100);
@@ -35,7 +45,7 @@ isChild(103); // false
 
 ```js
 function letsWishThem(greeting) {
-  // your code goes here
+  return (message)=>`${greeting} ${message}`;
 }
 
 const callWithHey = letsWishThem('Hey');
@@ -47,8 +57,8 @@ callWithHello('How Are You?'); // Hello How Are You?
 5. Write a function called `addGame` which takes a string (name of the game) and the current score. It returns a function calling that will increment the score by one and print something like `Score of Basketball is 1`.
 
 ```js
-function addGame(gameName) {
-  // your code goes here
+function addGame(gameName,score) {
+  return ()=>score+=1;
 }
 
 // Output
@@ -63,8 +73,13 @@ cricket(); // Your score of Cricket is 2
 6. Write a function called `getCard` which takes one of these options (club, spade, heart, diamond) returns a function calling that function returns random card (2,3,4,5,6,7,8,9,10,J, Q, K, A) of that suit.
 
 ```js
+Array.prototype.random = function () {
+  return this[Math.floor((Math.random()*this.length))];
+}
+var randomChar= [2,3,4,5,6,7,8,9,10,"J","Q","K","A"].random();
 function getCard(suit) {
-  // your code goes here
+  
+  return ()=>`${randomChar} ${suit}`;
 }
 
 // Output
