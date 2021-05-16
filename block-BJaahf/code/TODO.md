@@ -11,7 +11,7 @@
 
 ```js
 function loop(startValue,testFn,updateFn,bodyFn){
-  for(let i=startValue;testFn(startValue);updateFn(i)){
+  for(let i=startValue;testFn(startValue);i=updateFn(i)){
     bodyFn(i);
   }
 }
