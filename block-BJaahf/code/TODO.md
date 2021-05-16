@@ -10,29 +10,18 @@
 **You can use normal for loop for this function**
 
 ```js
-function loop(startValue,testFn,updateFn,bodyFn) {
-  let limit=testFn();
-  let currentValue=i;
-  for(var i = startValue;i<limit;i++){
-
+function loop(startValue,testFn,updateFn,bodyFn){
+  for(let i=startValue;testFn(startValue);updateFn(i)){
+    bodyFn(i);
   }
 }
-let testFn = function(arg){
-  return arg;
-} 
-function bodyFn(args){
-  return `body fn is executed ${args}`
-}
-function updateFn(){
-  return currentValue=i;
-}
+
 
 loop(
   3,
   (n) => n > 0,
   (n) => n - 1,
-  console.log
-);
+  console.log);
 // → 3
 // → 2
 // → 1
@@ -43,8 +32,14 @@ loop(
 Here's how it works. The function has an "accumulator value" which starts as the `initialValue` and accumulates the output of each loop. The array is iterated over, passing the accumulator and the next array element as arguments to the `callback`. The callback's return value becomes the new accumulator value. The next loop executes with this new accumulator value. In the example above, the accumulator begins at 0. `add(0,4)` is called. The accumulator's value is now 4. Then `add(4, 1)` to make it 5. Finally `add(5, 3)` brings it to 8, which is returned.
 
 ```js
-function reduce(array, callback, initialValue) {}
-
+function reduce(array, callback, initialValue) {
+ var acc=initialValue;
+  for(let i=0;i<array.length;i++){
+    acc=add(acc,array[i]);
+  }
+  return acc;
+}
+ 
 // Test
 var nums = [4, 1, 3];
 var add = function (a, b) {
@@ -56,7 +51,27 @@ reduce(nums, add, 0); //-> 8
 3. Construct a function intersection that compares input arrays and returns a new array with elements found in all of the inputs.
 
 ```js
-function intersection(arrays) {}
+var obj={};
+function intersection(...arrays) {
+   for(let i=0;i<arrays.length;i++){
+    arrays[i].forEach((elem)=>{
+      var prevCount = obj[elem];
+        if(prevCount==undefined){
+          obj[elem] = 1;
+        }else{
+          obj[elem] = prevCount+1;
+        }
+    });
+  }
+  let newArray = [];
+  for(let keys in obj){
+    if(obj[keys]==3){
+      newArray.push(Number(keys));
+    }
+  }
+  return newArray;
+}
+
 
 // Test
 console.log(
@@ -71,8 +86,32 @@ console.log(
 4. Construct a function `union` that compares input arrays and returns a new array that contains all elements. If there are duplicate elements, only add it once to the new array. Preserve the order of the elements starting from the first element of the first input array.
 
 ```js
-function union(arrays) {}
-
+var obj={};
+function union(...arrays) {
+   for(let i=0;i<arrays.length;i++){
+    arrays[i].forEach((elem)=>{
+      var prevCount = obj[elem];
+        if(prevCount==undefined){
+          obj[elem] = 1;
+        }else{
+          obj[elem] = prevCount+1;
+        }
+    });
+  }
+  let newArray = [];
+  for(let keys in obj){
+    newArray.push(Number(keys));
+  }
+  return newArray;
+}
+// Test
+console.log(
+  union(
+    [5, 10, 15, 20],
+    [15, 88, 1, 5, 7],
+    [1, 10, 15, 5, 20]
+  )
+);
 // Test
 console.log(
   union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5])
