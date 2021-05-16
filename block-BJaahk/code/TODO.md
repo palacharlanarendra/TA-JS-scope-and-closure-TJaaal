@@ -6,7 +6,7 @@ The returned function accepts a sentence. If the sentence contains the `fromWord
 
 ```js
 function censor(fromWord, toWord) {
-  //  Your code goes here
+  return (str)=>str.includes(fromWord)?str.replace(fromWord,toWord):str;
 }
 
 let censorSentence = censor('World', 'Sam');
@@ -25,7 +25,15 @@ The returned function either accepts two parameter or one parameter.
 
 ```js
 function multipleCensor() {
-  //  Your code goes here
+  let array=[]
+  return (arg1,arg2) => {
+    if(arg1 && arg2){
+    array.push(arg1,arg2);
+    }
+    if(arg2==undefined){
+      return arg1.includes(array[0])?arg1.replace(array[0],array[1]):arg1;
+    }
+  }
 }
 
 let censorQuote = multipleCensor();
@@ -49,8 +57,17 @@ The returned function accepts one parameter.
 - If the parameter is the same as the password it will return the object in which we stored the values.
 
 ```js
-function createCache() {
-  // Your code goes here
+function createCache(cb,arg1) {
+  let obj={};
+  return (n)=>{
+    if(typeof(n)=="number"){
+      obj[n]=cb(n);
+      return cb(n)
+    }
+    if(n==arg1){
+      return obj;
+    }
+  };
 }
 
 function add10(num) {
@@ -69,10 +86,25 @@ addCache('foo'); // {12: 22, 100: 110, 1: 11}
 4. Change the above function in such a way that when the returned function is called with any other value than password. It should first check the object where we are storing the argument and return value. If the key is present return the value form the object itself. Otherwise call the callback function with the parameter.
 
 ```js
-function createCache() {
-  // Your code goes here
+function createCache(cb,arg1) {
+  let obj={};
+  return (n)=>{
+    if(n!=arg1){
+      for(let key in obj){
+        if(key==n){
+          return obj[key];
+        }
+      }
+    }
+    if(typeof(n)=="number"){
+      obj[n]=cb(n);
+      return cb(n)
+    }
+    if(n==arg1){
+      return obj;
+    }
+  };
 }
-
 function add10(num) {
   return num + 10;
 }
